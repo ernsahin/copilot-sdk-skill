@@ -1,0 +1,101 @@
+{
+  "skill_name": "copilot-sdk",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want a Go Copilot SDK code review agent for a repository. It should inspect the codebase, review changes, and not take shallow shortcuts.",
+      "expected_output": "A concise interview or directive rewrite followed by a Go-first architecture plan using SDK-native sessions, search tools, custom agents, permission handling, failure modes, and risk-based tests.",
+      "files": [],
+      "expectations": [
+        "The output does not invent a custom file finder when grep or repository search tools are appropriate.",
+        "The output identifies permission handling as a runtime policy rather than only a prompt instruction.",
+        "The output includes failure modes for denied permissions, tool errors, cancellation, and repeated requests.",
+        "The output treats tests as risk-based rather than universally required."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Rewrite this into a professional prompt/directive for an agent: make a copilot sdk app that patches code but make it really good and don't let it do dumb basic stuff.",
+      "expected_output": "A short numbered directive list in professional language that preserves quality intent without overlong persona text.",
+      "files": [],
+      "expectations": [
+        "The output is a numbered list with concise directives.",
+        "The output removes emotional or casual phrasing.",
+        "The output requires root-cause analysis, SDK-native primitives, permissions, failure handling, and upstream verification.",
+        "The output leaves room for research and implementation judgment instead of overfitting details."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a production backend service with Copilot SDK, BYOK, MCP tools, streaming updates, and resumable sessions.",
+      "expected_output": "A production architecture plan that asks or resolves key boundaries, verifies upstream, and covers auth, provider config, MCP, permissions, streaming, persistence, telemetry, throttling, and tests where risk justifies them.",
+      "files": [],
+      "expectations": [
+        "The output requires upstream verification before version-sensitive API guidance.",
+        "The output separates host application, SDK client, session, tools, permissions, events, and persistence responsibilities.",
+        "The output covers BYOK/provider errors, MCP startup failure, rate limits, repeated requests, resume, and cancellation.",
+        "The output specifies automated tests only for risky shared behavior and allows manual checks for low-risk prototype paths."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this Copilot SDK plan: create one huge prompt that tells the agent to do everything, approve all tools, and save every intermediate state in custom JSON files.",
+      "expected_output": "A review that leads with concrete risks and recommends SDK-native skills, custom agents, scoped tools, permission handlers, hooks, events, and canonical state ownership.",
+      "files": [],
+      "expectations": [
+        "The output flags the huge prompt as brittle and recommends concise prompts plus reusable skills.",
+        "The output rejects approve-all for production-like usage unless explicitly scoped to a controlled prototype.",
+        "The output identifies custom JSON state as a source-of-truth risk unless it has clear ownership.",
+        "The output recommends SDK-native primitives before custom orchestration."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Make this Copilot SDK skill more useful. It feels generic and like it was created just to exist. Compare it to Supabase-style agent skills and improve the docs or structure.",
+      "expected_output": "A concrete critique and improvement plan or patch that adds practical docs lookup paths, known gotchas, reference taxonomy, feedback workflow, and eval coverage instead of adding vague philosophy.",
+      "files": [],
+      "expectations": [
+        "The output compares against concrete skill design patterns such as trigger-rich descriptions, concise SKILL.md bodies, reference files, and known gotchas.",
+        "The output identifies specific weaknesses in the current skill rather than only defending it.",
+        "The output adds or proposes actionable reference material that an agent would actually use during implementation.",
+        "The output adds or proposes an eval that catches generic or low-utility skill behavior."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "I want a code reviewer with agents sdk. It should create the SDLC lifecycle.",
+      "expected_output": "A clarification or directive rewrite that treats the request as a product/workflow problem, not a request for empty lifecycle folders. The response should identify the intended SDK, define the code review workflow, and require executable review behavior, state, failure handling, observability, permissions, and risk-based validation.",
+      "files": [],
+      "expectations": [
+        "The output does not treat SDLC as merely folders named requirements, design, development, testing, deployment, and maintenance.",
+        "The output clarifies or flags ambiguity around which Agents SDK is meant.",
+        "The output frames the code reviewer as an executable workflow or product with inputs, outputs, review states, and user-facing behavior.",
+        "The output includes failure handling, observability, permissions, continuation, and validation requirements appropriate to the selected SDK."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Build a Copilot SDK agent workflow that answers repeated project checks. For now it only needs to answer one obvious case, so a hardcoded result might pass the demo.",
+      "expected_output": "A response that rejects hardcoding when the user is asking for a reusable agent workflow, defines the intended capability, chooses a simple general mechanism, and checks ownership, access, evidence, observability, state, failure behavior, and validation before completion.",
+      "files": [],
+      "expectations": [
+        "The output distinguishes between a one-off answer and a reusable mechanism.",
+        "The output rejects hardcoded outcomes when future inputs or repeated workflow use are implied.",
+        "The output includes a completion check or explicitly states unresolved gates/prototype limits.",
+        "The output keeps the mechanism simple rather than adding unnecessary architecture."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Create a Copilot SDK PR reviewer. Later I may add a docs updater agent and a security agent that reuse the same GitHub integration.",
+      "expected_output": "A design that treats the PR reviewer as the first workflow on a reusable Copilot SDK runtime host. It should separate runtime host, workflows, agents, tools, permissions, state, integrations, and observability without overbuilding a speculative platform.",
+      "files": [],
+      "expectations": [
+        "The output does not embed all GitHub behavior directly inside one reviewer agent.",
+        "The output separates reusable runtime host responsibilities from workflow-specific behavior.",
+        "The output explains how future agents or workflows can reuse tools, permissions, state, and observability through contracts.",
+        "The output avoids speculative abstractions beyond the expected second workflow."
+      ]
+    }
+  ]
+}
