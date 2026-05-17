@@ -58,6 +58,7 @@ skills/copilot-sdk/
   evals/evals.json
   assets/
 docs/
+  benchmark-summary.md
   evaluation.md
   release-checklist.md
 scripts/
@@ -86,7 +87,7 @@ CI runs the same validation on every push and pull request.
 
 ## Evaluation Status
 
-The skill includes eight eval prompts covering:
+The skill includes eval prompts covering:
 
 - Copilot SDK code review agents.
 - Directive rewriting.
@@ -96,8 +97,34 @@ The skill includes eight eval prompts covering:
 - SDLC-as-workflow behavior.
 - Hardcoded shortcut rejection.
 - Runtime extensibility for future agents.
+- Autonomous recovery instead of unnecessary user handoff.
+- Source verification for exact SDK API guidance.
 
-See [docs/evaluation.md](docs/evaluation.md) for the baseline vs with-skill runbook.
+See [docs/evaluation.md](docs/evaluation.md) for the baseline vs with-skill runbook and [docs/benchmark-summary.md](docs/benchmark-summary.md) for the current manual benchmark summary.
+
+Behavior eval tooling is included under [eval-harness](eval-harness/). It uses GitHub Copilot SDK itself:
+
+```bash
+cd eval-harness
+go run . -limit 4
+```
+
+The harness runs paired sessions:
+
+1. Baseline: same custom eval agent with no skill preloaded.
+2. With skill: same custom eval agent with `Skills: ["copilot-sdk"]` and `SkillDirectories` pointing at this repository's `skills/` directory.
+
+Raw run outputs are written to `eval-results/`, which is ignored by git. The repository does not claim benchmark completion until outputs are manually graded and summarized.
+
+## Examples Policy
+
+Files under `skills/copilot-sdk/examples/` are shape references, not source verification. They show the kind of runtime boundary to design, but they must not be copied as final SDK API code.
+
+For exact SDK imports, types, fields, event names, permission result names, or setup code, inspect current upstream docs or the installed SDK source for the target version.
+
+## Field Test
+
+The skill was tested against a small local Go Copilot SDK CLI, documented in [docs/field-test-copilot-go-chat.md](docs/field-test-copilot-go-chat.md). The test verified that the skill pushed the implementation toward runtime prompts, SDK session lifecycle, permission policy, event observability, timeout behavior, and policy tests instead of a hardcoded demo.
 
 ## Source Policy
 
@@ -112,4 +139,3 @@ Primary sources:
 ## License
 
 MIT. See [LICENSE](LICENSE).
-

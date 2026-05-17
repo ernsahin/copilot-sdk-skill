@@ -4,7 +4,7 @@ All notable changes to this skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses semantic versioning for skill content.
 
-## [0.4.0] - 2026-05-17
+## [0.4.0] - 2026-05-18
 
 ### Added
 
@@ -13,11 +13,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Local validator for frontmatter, references, evals, examples, and placeholders.
 - Evaluation runbook for baseline vs with-skill comparisons.
 - Release checklist for publishing and update quality.
+- Copilot SDK eval harness that runs paired baseline and with-skill sessions through the Go SDK.
+- Benchmark summary documenting the current manual read and remaining evaluation limits.
+- Field-test notes for the local Go Copilot SDK CLI prototype.
+- High-impact Copilot SDK rule references for permissions, state ownership, side-effect targeting, observability, native primitives, and extensibility.
 
 ### Changed
 
 - Strengthened runtime extensibility standard for multi-agent Copilot SDK products.
 - Clarified that the first requested agent is the first workflow on a reusable runtime host, not the whole architecture.
+- Tightened source-verification rules so exact SDK APIs are not presented unless current source or official docs were inspected during the task.
+- Reclassified example files as shape references rather than verified SDK setup code.
+- Expanded eval coverage for autonomous recovery and source-sensitive SDK guidance.
 
 ## [0.3.0] - 2026-05-17
 
@@ -42,4 +49,3 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - Initial `copilot-sdk` skill draft.
 - Go-first references, examples, and initial eval prompts.
-

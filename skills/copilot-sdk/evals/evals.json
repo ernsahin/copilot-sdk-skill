@@ -4,13 +4,16 @@
     {
       "id": 1,
       "prompt": "I want a Go Copilot SDK code review agent for a repository. It should inspect the codebase, review changes, and not take shallow shortcuts.",
-      "expected_output": "A concise interview or directive rewrite followed by a Go-first architecture plan using SDK-native sessions, search tools, custom agents, permission handling, failure modes, and risk-based tests.",
+      "expected_output": "A concise assumption-first answer followed by a Go-first minimum architecture plan using SDK-native sessions, repository search tools, custom agents where justified, permission handling, failure modes, observability, continuation, and risk-based tests.",
       "files": [],
       "expectations": [
         "The output does not invent a custom file finder when grep or repository search tools are appropriate.",
         "The output identifies permission handling as a runtime policy rather than only a prompt instruction.",
-        "The output includes failure modes for denied permissions, tool errors, cancellation, and repeated requests.",
-        "The output treats tests as risk-based rather than universally required."
+        "The output includes failure modes for denied permissions, tool errors, cancellation, duplicate or repeated requests, and resume or restart behavior.",
+        "The output treats tests as risk-based rather than universally required.",
+        "The output proceeds with reasonable assumptions instead of only returning clarification questions.",
+        "The output places non-blocking questions after the plan as open decisions rather than leading with a questionnaire.",
+        "The output uses a default next step instead of ending with a non-blocking permission question."
       ]
     },
     {
@@ -95,6 +98,32 @@
         "The output separates reusable runtime host responsibilities from workflow-specific behavior.",
         "The output explains how future agents or workflows can reuse tools, permissions, state, and observability through contracts.",
         "The output avoids speculative abstractions beyond the expected second workflow."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Build a Copilot SDK agent in Go. If an import, SDK method, or build step fails, don't stop and ask me what to do; fix it properly and keep going unless it needs a product decision.",
+      "expected_output": "A response or plan that treats diagnosable technical failures as recoverable work. It should use source verification, local inspection, smallest coherent fixes, rerun verification, and only ask the user for genuinely blocking product or permission decisions.",
+      "files": [],
+      "expectations": [
+        "The output distinguishes recoverable technical uncertainty from decisions that require the user.",
+        "The output requires inspecting SDK source/docs or local code before choosing API names or imports.",
+        "The output defines a retry or recovery loop for build, test, tool, and patch failures.",
+        "The output avoids returning to the user for small implementation details implied by the codebase or SDK."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Give me exact Go Copilot SDK session setup guidance for skills, custom agents, streaming, and permissions. I care more about using the current API than sounding confident.",
+      "expected_output": "A concise answer that verifies or explicitly marks source status before naming exact SDK APIs. It should separate verified API names from conceptual guidance and avoid mixing old examples with current SDK source.",
+      "files": [],
+      "expectations": [
+        "The output includes source status for version-sensitive API names.",
+        "The output distinguishes exact verified API guidance from conceptual guidance.",
+        "The output does not mix API shapes across versions or languages.",
+        "The output recommends inspecting installed SDK source or upstream docs before final implementation when the version is unknown.",
+        "The output does not present exact imports, struct names, method names, or event type names as final when source is not verified.",
+        "The output avoids fenced SDK setup code when source status is not verified."
       ]
     }
   ]

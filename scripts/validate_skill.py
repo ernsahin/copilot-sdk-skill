@@ -94,6 +94,22 @@ def validate_references(skill_dir: Path, skill_text: str) -> None:
     if not sections.exists():
         fail("Missing references/_sections.md")
 
+    required_references = [
+        "copilot-sdk-rules.md",
+        "workflow-routing.md",
+        "stop-conditions.md",
+        "source-verification.md",
+        "known-gotchas.md",
+        "agent-product-lifecycle.md",
+    ]
+    for name in required_references:
+        path = references_dir / name
+        if not path.exists():
+            fail(f"Missing required reference: references/{name}")
+        text = path.read_text(encoding="utf-8")
+        if "impact:" not in text:
+            fail(f"Reference must declare impact metadata: references/{name}")
+
 
 def validate_examples(skill_dir: Path) -> None:
     examples_dir = skill_dir / "examples"
@@ -106,6 +122,10 @@ def validate_examples(skill_dir: Path) -> None:
         text = example.read_text(encoding="utf-8")
         if "Verify upstream" not in text and "shape reference" not in text:
             fail(f"Example must declare freshness policy: {example.name}")
+        if "not source verification" not in text.lower():
+            fail(f"Example must state it is not source verification: {example.name}")
+        if "```go" in text:
+            fail(f"Example must not include exact Go setup code: {example.name}")
 
 
 def validate_evals(skill_dir: Path, skill_name: str) -> None:
@@ -142,14 +162,48 @@ def validate_evals(skill_dir: Path, skill_name: str) -> None:
         if not isinstance(expectations, list) or len(expectations) < 3:
             fail(f"Eval {eval_id} must have at least three expectations")
 
+    required_eval_phrases = [
+        "hardcoded",
+        "runtime host",
+        "SDLC lifecycle",
+        "approve all",
+    ]
+    eval_text = "\n".join(
+        "\n".join(
+            [
+                item.get("prompt", ""),
+                item.get("expected_output", ""),
+                "\n".join(item.get("expectations", [])),
+            ]
+        )
+        for item in evals
+    )
+    for phrase in required_eval_phrases:
+        if phrase.lower() not in eval_text.lower():
+            fail(f"Evals must cover phrase/theme: {phrase}")
+
 
 def main() -> None:
     if len(sys.argv) != 2:
         fail("Usage: validate_skill.py <skill-dir>")
-    validate_skill(Path(sys.argv[1]).resolve())
+    skill_dir = Path(sys.argv[1]).resolve()
+    validate_skill(skill_dir)
+    repo_root = skill_dir.parent.parent
+    validate_eval_harness(repo_root)
     print("Skill package is valid.")
+
+
+def validate_eval_harness(repo_root: Path) -> None:
+    harness_dir = repo_root / "eval-harness"
+    if not harness_dir.exists():
+        fail("Missing eval-harness directory")
+    for rel in ["go.mod", "main.go", "README.md"]:
+        if not (harness_dir / rel).exists():
+            fail(f"Missing eval harness file: eval-harness/{rel}")
+    gitignore = repo_root / ".gitignore"
+    if not gitignore.exists() or "eval-results/" not in gitignore.read_text(encoding="utf-8"):
+        fail(".gitignore must exclude eval-results/")
 
 
 if __name__ == "__main__":
     main()
-

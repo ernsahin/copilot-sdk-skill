@@ -1,47 +1,25 @@
-# Go Tool Pattern
+# Go Tool Shape
 
-Use this as a shape reference. Verify upstream Go SDK APIs before copying into production code.
+This file is a shape reference only.
 
-Use SDK-native typed tools before hand-written orchestration.
+It is not source verification. Verify exact tool APIs, schema conventions, invocation metadata, and trace fields against the installed SDK or upstream Go source before writing final code.
 
-```go
-type LookupIssueParams struct {
-	ID string `json:"id" jsonschema:"Issue identifier"`
-}
+## Conceptual Pattern
 
-lookupIssue := copilot.DefineTool(
-	"lookup_issue",
-	"Fetch issue details from the project tracker",
-	func(params LookupIssueParams, inv copilot.ToolInvocation) (any, error) {
-		if params.ID == "" {
-			return nil, fmt.Errorf("issue id is required")
-		}
+Use SDK-native typed tools when the SDK provides them. A good tool has:
 
-		issue, err := fetchIssue(inv.TraceContext, params.ID)
-		if err != nil {
-			return nil, err
-		}
+1. A narrow name and purpose.
+2. A typed input contract.
+3. Validation for required and risky arguments.
+4. Explicit error returns.
+5. Runtime permission checks when the operation can read sensitive data, write, execute, call a network, or mutate an external system.
+6. Audit metadata that avoids leaking secrets.
 
-		return map[string]any{
-			"id":      issue.ID,
-			"title":   issue.Title,
-			"status":  issue.Status,
-			"summary": issue.Summary,
-		}, nil
-	},
-)
+## Review Questions
 
-session, err := client.CreateSession(ctx, &copilot.SessionConfig{
-	Model:               "gpt-5",
-	Tools:               []copilot.Tool{lookupIssue},
-	OnPermissionRequest: projectPermissionPolicy,
-})
-```
-
-Review before production:
-
-1. Are arguments validated?
-2. Is the tool scope narrow?
-3. Does the permission policy match the operation risk?
-4. Are failures returned explicitly?
-5. Does telemetry avoid leaking sensitive content?
+1. Is the tool scope narrow enough?
+2. Are arguments validated before execution?
+3. Is the permission policy matched to operation risk?
+4. Are failures returned explicitly and recoverably?
+5. Does telemetry avoid sensitive content?
+6. Can another workflow reuse this tool without inheriting hidden assumptions?
