@@ -125,6 +125,90 @@
         "The output does not present exact imports, struct names, method names, or event type names as final when source is not verified.",
         "The output avoids fenced SDK setup code when source status is not verified."
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "Use the Copilot SDK API ledger to sketch a minimal Go CLI starter with streaming output and a conservative permission policy. It should not approve all tools.",
+      "expected_output": "A Go-first implementation answer that cites API ledger status, uses the minimal starter shape, includes client/session lifecycle, streaming events, read-only or conservative permissions, timeout/cancellation, and cleanup.",
+      "files": [],
+      "expectations": [
+        "The output mentions API ledger verification status and date or requires installed source verification.",
+        "The output uses a conservative permission handler instead of approve all.",
+        "The output includes client start, session creation, streaming event handling, prompt send, session disconnect, and client stop.",
+        "The output keeps the starter minimal rather than adding unrelated infrastructure."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Build a TypeScript Copilot SDK custom-agent setup where a security reviewer sub-agent preloads a skill. Make sure the answer handles skillDirectories correctly.",
+      "expected_output": "A TypeScript-oriented answer that uses the API ledger, explains skillDirectories as the parent skills directory, defines customAgents with a skills list, and notes that sub-agents do not inherit skills by default.",
+      "files": [],
+      "expectations": [
+        "The output cites the API ledger or upstream verification before exact TypeScript API names.",
+        "The output uses skillDirectories as the parent directory containing named skill folders.",
+        "The output configures per-agent skills explicitly rather than assuming inheritance.",
+        "The output includes permission handling as runtime policy."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Create a minimal Python Copilot SDK service loop with streaming events and a permission handler. Use the starter only if it is actually verified.",
+      "expected_output": "A Python-oriented implementation answer that cites the API ledger, uses async client/session lifecycle, session events, send or send_and_wait, and a conservative permission handler.",
+      "files": [],
+      "expectations": [
+        "The output cites the API ledger or upstream verification before exact Python API names.",
+        "The output uses async lifecycle management for client and session.",
+        "The output includes session event handling for assistant output and idle completion.",
+        "The output denies risky operations or defines a scoped permission policy instead of approve all."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Design a BYOK Copilot SDK backend for an enterprise app with resumable sessions, streaming updates, and OpenAI-compatible provider config.",
+      "expected_output": "A backend workflow answer that separates host app, provider config, session lifecycle, secrets, telemetry, streaming, persistence, permission policy, failure behavior, and validation.",
+      "files": [],
+      "expectations": [
+        "The output uses the BYOK backend workflow rather than only giving a provider snippet.",
+        "The output requires model/provider configuration and secret ownership.",
+        "The output covers resumable session IDs, duplicate requests, cancellation, rate limits, and auth failures.",
+        "The output defines telemetry and sensitive-content policy."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Make a Copilot SDK agent that uses MCP for GitHub and a local database tool. I need a workflow, not just a config blob.",
+      "expected_output": "An MCP-backed agent workflow that names local vs remote server boundaries, tool allowlists, startup failure behavior, permission policy, audit logging, and target verification for side effects.",
+      "files": [],
+      "expectations": [
+        "The output identifies local and remote MCP server configuration boundaries.",
+        "The output avoids exposing all tools by default outside a controlled prototype.",
+        "The output defines startup failure, timeout, auth failure, and unavailable tool behavior.",
+        "The output routes external writes through permission policy and target verification."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Give me exact .NET and Rust Copilot SDK code for skills and custom agents without looking anything up.",
+      "expected_output": "A refusal to provide exact unverified .NET or Rust setup code, plus source-map guidance and a conceptual plan. The answer should not overclaim API ledger coverage for unsupported languages.",
+      "files": [],
+      "expectations": [
+        "The output does not provide exact .NET or Rust imports, types, fields, or setup code without verification.",
+        "The output explains that Builder Kit deep support is Go, TypeScript, and Python for this version.",
+        "The output gives official source lookup paths for .NET and Rust.",
+        "The output offers conceptual guidance without fenced SDK setup code."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Improve this Copilot SDK skill so it is not just philosophy. I want context-efficient references, implementation starters, and measurable top-tier benchmark criteria.",
+      "expected_output": "A skill-improvement answer that preserves progressive disclosure, adds a concise API ledger, workflow playbooks, minimal starters, validation scripts, and honest benchmark criteria instead of bloating SKILL.md.",
+      "files": [],
+      "expectations": [
+        "The output keeps SKILL.md concise and routes to references instead of loading every detail by default.",
+        "The output adds or proposes a concise verified API ledger for Go, TypeScript, and Python.",
+        "The output adds or proposes minimal starter templates and workflow playbooks.",
+        "The output defines benchmark criteria and does not claim top-tier status without repeated eval evidence."
+      ]
     }
   ]
 }

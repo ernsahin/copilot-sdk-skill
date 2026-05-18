@@ -24,17 +24,22 @@ Session design, tools, MCP, custom agents, skills, persistence, events, and sour
 
 **Impact:** HIGH
 
-Language-specific API patterns, Go defaults, examples, lifecycle cleanup, and code generation rules.
+Language-specific API ledger, minimal starters, lifecycle cleanup, and code generation rules.
 
-## 5. Medium Prompt Quality (prompt)
+## 5. High Workflow Playbooks (workflow)
+
+**Impact:** HIGH
+
+Code review, patching, MCP-backed agents, BYOK backends, and skill-loaded custom agents.
+
+## 6. Medium Prompt Quality (prompt)
 
 **Impact:** MEDIUM
 
 Concise directives, reusable prompt modules, anti-shallow planning checks, and eval prompts.
 
-## 6. Medium Validation (validation)
+## 7. Medium Validation (validation)
 
 **Impact:** MEDIUM
 
 Risk-based tests, manual checks, production readiness, and evaluation workflow.
-

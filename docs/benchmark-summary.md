@@ -7,7 +7,7 @@ The eval harness compares:
 1. Baseline: same custom eval agent with no skill preloaded.
 2. With skill: same custom eval agent with `Skills: ["copilot-sdk"]` and this repository's `skills/` directory.
 
-Raw eval outputs are intentionally ignored by git under `eval-results/`. They contain model transcripts, event logs, and run metadata that are useful locally but too noisy for the published skill package.
+Raw eval outputs are intentionally ignored by git under `eval-results/`. They contain model transcripts, event logs, permission logs, aggregate grading summaries, and run metadata that are useful locally but too noisy for the published skill package.
 
 ## Latest Manual Read
 
@@ -46,11 +46,23 @@ After targeted iteration:
 2. Unverified SDK guidance now stays conceptual and avoids exact setup code.
 3. Example files were downgraded to shape references so they cannot be treated as source verification.
 
+## Top-Tier Claim Gate
+
+Do not claim top-tier benchmark quality until all of these are true:
+
+1. At least three runs are completed.
+2. At least eight evals are graded per run.
+3. Go, TypeScript, and Python implementation evals are included.
+4. MCP and BYOK workflow evals are included.
+5. The negative unsupported-language eval passes.
+6. With-skill output materially beats baseline across architecture, implementation, source verification, and workflow categories.
+7. Failed expectations are classified and either fixed or documented as out of scope.
+
 ## Remaining Honest Limits
 
 Before claiming top-tier benchmark quality:
 
 1. Run the expanded eval set across multiple attempts to account for model variance.
-2. Add automatic aggregation for manual grades.
+2. Use `aggregate-grading.json` for manual grade summaries.
 3. Add trigger-selection evals separate from behavior-quality evals.
 4. Keep release notes explicit about what was verified and what remains qualitative.

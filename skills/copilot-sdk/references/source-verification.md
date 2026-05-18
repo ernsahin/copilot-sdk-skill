@@ -24,28 +24,32 @@ Check the current repository docs and target language source, then write only th
 ## Lookup Order
 
 1. Installed dependency source or lockfile for the project, if present.
-2. Main repository: `https://github.com/github/copilot-sdk`
-3. Docs index: `https://raw.githubusercontent.com/github/copilot-sdk/main/docs/index.md`
-4. Target language directory:
+2. Concise verified API ledger for Go, TypeScript/Node.js, or Python:
+   - `references/verified-api-ledger.md`
+3. Main repository: `https://github.com/github/copilot-sdk`
+4. Docs index: `https://raw.githubusercontent.com/github/copilot-sdk/main/docs/index.md`
+5. Target language directory:
    - TypeScript/Node.js: `nodejs/`
    - Python: `python/`
    - Go: `go/`
    - .NET: `dotnet/`
    - Java: linked Java package/repository from the main README
    - Rust: `rust/`
-5. Feature docs:
+6. Feature docs:
    - `docs/features/skills.md`
    - `docs/features/mcp.md`
    - `docs/features/custom-agents.md`
    - `docs/features/hooks.md`
    - `docs/features/streaming-events.md`
    - `docs/features/session-persistence.md`
-6. Auth/setup docs:
+7. Auth/setup docs:
    - `docs/auth/index.md`
    - `docs/auth/byok.md`
    - `docs/setup/index.md`
-7. Troubleshooting and compatibility docs.
-8. Releases and issues when docs conflict with observed behavior.
+8. Troubleshooting and compatibility docs.
+9. Releases and issues when docs conflict with observed behavior.
+
+The ledger is a context reducer. It is acceptable source verification for starter-level guidance only when the task does not require a newer installed package or production guarantee.
 
 ## Version Discipline
 
@@ -55,7 +59,7 @@ When implementation guidance depends on exact SDK APIs:
 
 1. Identify the target language and installed or intended version.
 2. Confirm field names, method names, config names, and event names from that version.
-3. Prefer verified source over examples that may lag the package.
+3. Prefer installed source over the ledger, and the ledger over examples that may lag the package.
 4. If the version is unknown, write conceptual guidance and mark exact API names as unverified.
 
 ## Verification Claims
@@ -69,6 +73,12 @@ Do not claim verification from:
 5. A package name guessed from convention.
 
 Claim verification only from source or docs inspected during the task.
+
+For the verified API ledger, state:
+
+```text
+Source status: verified from the API ledger checked on <date>; recheck installed SDK before production.
+```
 
 If verification is impossible, use this form:
 

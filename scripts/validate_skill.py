@@ -75,6 +75,7 @@ def validate_skill(skill_dir: Path) -> None:
 
     validate_references(skill_dir, text)
     validate_examples(skill_dir)
+    validate_builder_kit(skill_dir)
     validate_evals(skill_dir, name)
 
 
@@ -109,6 +110,53 @@ def validate_references(skill_dir: Path, skill_text: str) -> None:
         text = path.read_text(encoding="utf-8")
         if "impact:" not in text:
             fail(f"Reference must declare impact metadata: references/{name}")
+
+
+def validate_builder_kit(skill_dir: Path) -> None:
+    workflow_dir = skill_dir / "references" / "workflows"
+    starters_dir = skill_dir / "examples" / "starters"
+
+    ledger = skill_dir / "references" / "verified-api-ledger.md"
+    if not ledger.exists():
+        fail("Missing verified API ledger: references/verified-api-ledger.md")
+    ledger_text = ledger.read_text(encoding="utf-8")
+    for required in ["checked:", "Sources Checked", "## Go", "## TypeScript", "## Python"]:
+        if required not in ledger_text:
+            fail(f"Verified API ledger missing {required!r}")
+    if "raw.githubusercontent.com/github/copilot-sdk" not in ledger_text:
+        fail("Verified API ledger must cite official upstream raw URLs")
+
+    required_workflows = [
+        "code-reviewer-workflow.md",
+        "code-patcher-workflow.md",
+        "mcp-backed-agent-workflow.md",
+        "byok-backend-workflow.md",
+        "skill-loaded-custom-agent-workflow.md",
+    ]
+    for name in required_workflows:
+        path = workflow_dir / name
+        if not path.exists():
+            fail(f"Missing workflow playbook: references/workflows/{name}")
+        text = path.read_text(encoding="utf-8")
+        for required in ["impact:", "Runtime Shape", "Workflow", "Failure"]:
+            if required not in text:
+                fail(f"Workflow missing {required!r}: {path.relative_to(skill_dir)}")
+
+    required_starters = {
+        "go": ["README.md", "main.go"],
+        "typescript": ["README.md", "index.ts"],
+        "python": ["README.md", "main.py"],
+    }
+    for starter, files in required_starters.items():
+        starter_dir = starters_dir / starter
+        if not starter_dir.exists():
+            fail(f"Missing starter directory: examples/starters/{starter}")
+        readme = (starter_dir / "README.md").read_text(encoding="utf-8")
+        if "Verified against API ledger:" not in readme:
+            fail(f"Starter README must declare API ledger freshness: examples/starters/{starter}/README.md")
+        for file_name in files:
+            if not (starter_dir / file_name).exists():
+                fail(f"Missing starter file: examples/starters/{starter}/{file_name}")
 
 
 def validate_examples(skill_dir: Path) -> None:
@@ -167,6 +215,11 @@ def validate_evals(skill_dir: Path, skill_name: str) -> None:
         "runtime host",
         "SDLC lifecycle",
         "approve all",
+        "TypeScript",
+        "Python",
+        "API ledger",
+        "MCP",
+        "BYOK",
     ]
     eval_text = "\n".join(
         "\n".join(

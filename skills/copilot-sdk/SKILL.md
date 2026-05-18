@@ -1,19 +1,19 @@
 ---
 name: copilot-sdk
-description: Build, plan, review, and improve systems using github/copilot-sdk. Use this skill whenever the user mentions Copilot SDK, GitHub Copilot CLI SDKs, embedded Copilot agents, SDK sessions, custom tools, custom agents, MCP servers, hooks, BYOK/auth, streaming, persistence, telemetry, SDK-loaded skills, code review agents, code patching agents, PR automation, or professional directives for Copilot SDK systems. Enforce reusable runtime design, explicit tool and permission boundaries, observable session behavior, failure and continuation semantics, state ownership, source verification, and risk-based validation. Do not answer with shallow scaffolding, generic clarification only, final permission questions, or broad prompt text where runtime policy is required. Do not provide exact SDK imports, types, fields, event names, permission result names, or setup code unless current source or official docs were verified during the task.
+description: Build, plan, review, and improve production-shaped systems using github/copilot-sdk. Use this skill whenever the user mentions Copilot SDK, GitHub Copilot CLI SDKs, embedded Copilot agents, SDK sessions, Go, TypeScript/Node.js, Python, custom tools, custom agents, MCP servers, hooks, BYOK/auth, streaming, persistence, telemetry, SDK-loaded skills, code review agents, code patching agents, PR automation, or professional directives for Copilot SDK systems. Treat this as a Builder Kit: route to the verified API ledger, workflow playbooks, and minimal starters before inventing code. Enforce reusable runtime design, explicit tool and permission boundaries, observable session behavior, failure and continuation semantics, state ownership, source verification, and risk-based validation. Do not provide exact SDK imports, types, fields, event names, permission result names, or setup code unless current source, installed package source, or the verified API ledger was inspected during the task.
 license: MIT
 metadata:
   author: local
-  version: "0.4.0"
+  version: "0.5.0"
 ---
 
-# Copilot SDK
+# Copilot SDK Builder Kit
 
-Use this skill as a senior engineering guide for Copilot SDK systems. Do not merely make the request work. Raise the work to the level of a durable system.
+Use this skill as a Builder Kit for Copilot SDK systems. Do not merely make the request work. Raise the work to the level of a durable system that can run, be observed, fail safely, and continue.
 
-Keep the main response concise. Use references only when deeper SDK facts are needed.
+Keep the main response concise. Use references only when the task needs deeper SDK facts, implementation starters, or workflow detail.
 
-This skill is for Copilot SDK products and workflows, including agentic systems. A project is not complete when it only creates folders, documents, or templates. It must define behavior that can run, be observed, fail safely, and continue.
+Deep implementation support is Go-first, TypeScript/Node.js, and Python. .NET, Java, and Rust are source-map only for this version: give conceptual guidance and official lookup paths unless current source is verified during the task.
 
 ## Critical API Safety
 
@@ -21,7 +21,11 @@ The Copilot SDK is version-sensitive. Exact API guidance is unsafe unless verifi
 
 Do not provide exact imports, package paths, struct names, field names, methods, event type names, permission result names, or setup code unless current SDK source, installed package source, or official docs were inspected during the task.
 
-If verification is unavailable, say `Source status: not verified`, provide conceptual guidance only, and give the source path to check before implementation. Do not include fenced code blocks for SDK setup in this state.
+If verification is unavailable, say `Source status: not verified`, provide conceptual guidance only, and give the source path to check before implementation. Do not include fenced SDK setup code in this state.
+
+If the target is Go, TypeScript/Node.js, or Python, first inspect `references/verified-api-ledger.md`.
+
+Treat the ledger as a concise starting point, not permanent truth. When a project already has an installed SDK version, installed source or lockfiles outrank the ledger.
 
 ## Operating Standard
 
@@ -36,6 +40,21 @@ Before planning or implementing, establish the minimum durable system shape:
 7. The validation level justified by risk.
 
 If any of these are missing for a non-trivial system, resolve the gap or mark it as a prototype limit.
+
+## Builder Kit Routing
+
+Route the task before writing implementation details:
+
+1. Exact Go implementation: read `references/verified-api-ledger.md`, then use `examples/starters/go/` only if a minimal starter helps.
+2. Exact TypeScript/Node.js implementation: read `references/verified-api-ledger.md`, then use `examples/starters/typescript/` only if a minimal starter helps.
+3. Exact Python implementation: read `references/verified-api-ledger.md`, then use `examples/starters/python/` only if a minimal starter helps.
+4. Code reviewer agent: read `references/workflows/code-reviewer-workflow.md`.
+5. Code patcher agent: read `references/workflows/code-patcher-workflow.md`.
+6. MCP-backed agent: read `references/workflows/mcp-backed-agent-workflow.md`.
+7. BYOK or hosted backend: read `references/workflows/byok-backend-workflow.md`.
+8. Skill-loaded custom agents or sub-agents: read `references/workflows/skill-loaded-custom-agent-workflow.md`.
+
+Do not load every reference by default. Pull only the language and workflow files that match the request.
 
 ## Senior Review Rules
 
@@ -137,7 +156,7 @@ The directive should constrain quality, not prescribe every step.
 
 For Copilot SDK work, verify current upstream docs or source before version-sensitive API guidance.
 
-`Source status: verified` is allowed only after inspecting current SDK source, official docs, or the installed package for the target language during the task. Examples, remembered API shapes, old snippets, or this skill's own text are not source verification.
+`Source status: verified` is allowed only after inspecting current SDK source, official docs, installed package source, or `references/verified-api-ledger.md` for starter-level Go, TypeScript, or Python guidance during the task. Examples, remembered API shapes, old snippets, or this skill's own general instructions are not source verification.
 
 If source is unavailable, say `Source status: not verified`, keep the guidance conceptual, and do not provide exact imports, struct names, method names, event type names, or code snippets as final.
 
@@ -146,6 +165,8 @@ Do not put exact SDK setup code in the answer unless the exact API names were ve
 If the environment has the target SDK source installed, inspect it before searching the web. If only remembered knowledge is available, keep the guidance conceptual.
 
 Every non-trivial design must address session lifecycle, tools, permissions, auth/provider config, failure recovery, cancellation, repeated requests, observability, state ownership, security, and risk-based validation. Do not rely on prompt text for behavior that belongs in runtime policy, typed interfaces, configuration, or application code.
+
+When the verified API ledger is used, state its checked date and still warn that public-preview APIs should be rechecked before production.
 
 ## Agent Workflow Quality Gates
 
@@ -209,6 +230,12 @@ Read only what the task needs:
 - `references/workflow-routing.md` for workflow selection and orchestration.
 - `references/stop-conditions.md` for strict completion gates.
 - `references/source-verification.md` for current upstream lookup.
+- `references/verified-api-ledger.md` for concise verified Go, TypeScript, and Python API names.
+- `references/workflows/code-reviewer-workflow.md` for repository review agents.
+- `references/workflows/code-patcher-workflow.md` for code patching agents.
+- `references/workflows/mcp-backed-agent-workflow.md` for MCP tool integration.
+- `references/workflows/byok-backend-workflow.md` for hosted or BYOK backends.
+- `references/workflows/skill-loaded-custom-agent-workflow.md` for custom agents with skills.
 - `references/known-gotchas.md` for SDK-specific traps.
 - `references/go.md` for Go implementation details after source status is established.
 - `references/agent-product-lifecycle.md` for Copilot SDK agent/product design.

@@ -4,6 +4,23 @@ All notable changes to this skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses semantic versioning for skill content.
 
+## [0.5.0] - 2026-05-18
+
+### Added
+
+- Builder Kit positioning for Go, TypeScript/Node.js, and Python Copilot SDK work.
+- Concise verified API ledger for Go, TypeScript, and Python with checked upstream URLs.
+- Workflow playbooks for code review agents, code patchers, MCP-backed agents, BYOK backends, and skill-loaded custom agents.
+- Minimal starter templates for Go, TypeScript, and Python.
+- Upstream source link checker for CI.
+- Expanded eval coverage for starter implementation, MCP, BYOK, custom-agent skills, and unsupported exact .NET/Rust code.
+- Eval harness aggregate grading output.
+
+### Changed
+
+- Clarified that .NET, Java, and Rust are source-map only unless current source is verified during the task.
+- Updated release gates to require source link checks, starters, workflow playbooks, and stronger benchmark evidence before top-tier claims.
+
 ## [0.4.0] - 2026-05-18
 
 ### Added

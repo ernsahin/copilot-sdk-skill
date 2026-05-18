@@ -27,6 +27,9 @@ jobs:
       - name: Validate skill package
         run: python scripts/validate_skill.py skills/copilot-sdk
 
+      - name: Check upstream source links
+        run: python scripts/check_upstream_sources.py
+
       - name: Test Copilot SDK eval harness
         working-directory: eval-harness
         run: go test ./...

@@ -109,15 +109,15 @@ func run(evalsPath string, skillsDir string, outDir string, limit int, ids strin
 	defer client.Stop()
 
 	summary := map[string]any{
-		"created_at": time.Now().UTC().Format(time.RFC3339),
-		"runner":     "github.com/github/copilot-sdk/go",
-		"skill_name": evals.SkillName,
-		"skills_dir": skillsAbs,
-		"workdir":    workdirAbs,
-		"agent":      "copilot-sdk-eval-agent",
-		"with_skill_preloaded": true,
+		"created_at":              time.Now().UTC().Format(time.RFC3339),
+		"runner":                  "github.com/github/copilot-sdk/go",
+		"skill_name":              evals.SkillName,
+		"skills_dir":              skillsAbs,
+		"workdir":                 workdirAbs,
+		"agent":                   "copilot-sdk-eval-agent",
+		"with_skill_preloaded":    true,
 		"force_skill_instruction": forceSkill,
-		"evals":      []map[string]any{},
+		"evals":                   []map[string]any{},
 	}
 
 	for _, item := range evals.Evals {
@@ -130,11 +130,11 @@ func run(evalsPath string, skillsDir string, outDir string, limit int, ids strin
 		}
 
 		baseline := runOne(ctx, client, runConfig{
-			Prompt:   item.Prompt,
-			Model:    model,
-			Workdir:  workdirAbs,
-			OutDir:   filepath.Join(evalDir, "baseline"),
-			Timeout:  timeout,
+			Prompt:    item.Prompt,
+			Model:     model,
+			Workdir:   workdirAbs,
+			OutDir:    filepath.Join(evalDir, "baseline"),
+			Timeout:   timeout,
 			WithSkill: false,
 		})
 		withSkillPrompt := item.Prompt
@@ -142,24 +142,28 @@ func run(evalsPath string, skillsDir string, outDir string, limit int, ids strin
 			withSkillPrompt = "Use the copilot-sdk skill for this task.\n\n" + item.Prompt
 		}
 		withSkill := runOne(ctx, client, runConfig{
-			Prompt:     withSkillPrompt,
-			Model:      model,
-			Workdir:    workdirAbs,
-			OutDir:     filepath.Join(evalDir, "with-skill"),
-			Timeout:    timeout,
-			SkillDirs:  []string{skillsAbs},
-			WithSkill:  true,
+			Prompt:    withSkillPrompt,
+			Model:     model,
+			Workdir:   workdirAbs,
+			OutDir:    filepath.Join(evalDir, "with-skill"),
+			Timeout:   timeout,
+			SkillDirs: []string{skillsAbs},
+			WithSkill: true,
 		})
 
 		if err := writeGradingTemplate(filepath.Join(evalDir, "grading.json"), item, baseline, withSkill); err != nil {
 			return err
 		}
 		summary["evals"] = append(summary["evals"].([]map[string]any), map[string]any{
-			"id":        item.ID,
-			"directory": evalDir,
-			"baseline_error": baseline.Error,
+			"id":               item.ID,
+			"directory":        evalDir,
+			"baseline_error":   baseline.Error,
 			"with_skill_error": withSkill.Error,
 		})
+	}
+
+	if err := writeAggregateSummary(outAbs); err != nil {
+		return err
 	}
 
 	summaryBytes, err := json.MarshalIndent(summary, "", "  ")
@@ -390,8 +394,8 @@ func writeGradingTemplate(path string, item evalCase, baseline runResult, withSk
 		"expected_output":  item.ExpectedOutput,
 		"baseline_error":   baseline.Error,
 		"with_skill_error": withSkill.Error,
-		"expectations": expectationsTemplate(item.Expectations),
-		"notes": "Manually grade baseline and with_skill as true or false after reviewing response.md and events.jsonl.",
+		"expectations":     expectationsTemplate(item.Expectations),
+		"notes":            "Manually grade baseline and with_skill as true or false after reviewing response.md and events.jsonl.",
 	}
 	data, err := json.MarshalIndent(template, "", "  ")
 	if err != nil {
@@ -411,4 +415,65 @@ func expectationsTemplate(expectations []string) []map[string]any {
 		})
 	}
 	return result
+}
+
+func writeAggregateSummary(outDir string) error {
+	entries, err := os.ReadDir(outDir)
+	if err != nil {
+		return err
+	}
+	type aggregate struct {
+		Evals              int    `json:"evals"`
+		Expectations       int    `json:"expectations"`
+		GradedExpectations int    `json:"graded_expectations"`
+		BaselinePassed     int    `json:"baseline_passed"`
+		WithSkillPassed    int    `json:"with_skill_passed"`
+		Status             string `json:"status"`
+		Notes              string `json:"notes"`
+	}
+	result := aggregate{
+		Status: "ungraded",
+		Notes:  "Fill grading.json files, then rerun or aggregate manually before claiming benchmark quality.",
+	}
+	for _, entry := range entries {
+		if !entry.IsDir() || !strings.HasPrefix(entry.Name(), "eval-") {
+			continue
+		}
+		gradingPath := filepath.Join(outDir, entry.Name(), "grading.json")
+		data, err := os.ReadFile(gradingPath)
+		if err != nil {
+			continue
+		}
+		var grading struct {
+			Expectations []struct {
+				Baseline  *bool `json:"baseline"`
+				WithSkill *bool `json:"with_skill"`
+			} `json:"expectations"`
+		}
+		if err := json.Unmarshal(data, &grading); err != nil {
+			return fmt.Errorf("parse grading %s: %w", gradingPath, err)
+		}
+		result.Evals++
+		for _, item := range grading.Expectations {
+			result.Expectations++
+			if item.Baseline != nil && item.WithSkill != nil {
+				result.GradedExpectations++
+				if *item.Baseline {
+					result.BaselinePassed++
+				}
+				if *item.WithSkill {
+					result.WithSkillPassed++
+				}
+			}
+		}
+	}
+	if result.GradedExpectations > 0 {
+		result.Status = "graded"
+		result.Notes = "Directional only. Require repeated runs across at least eight evals before claiming top-tier benchmark quality."
+	}
+	data, err := json.MarshalIndent(result, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filepath.Join(outDir, "aggregate-grading.json"), data, 0o644)
 }

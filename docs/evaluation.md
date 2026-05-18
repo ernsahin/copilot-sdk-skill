@@ -9,8 +9,10 @@ The goal is to verify that the skill changes agent behavior, not just that the f
 - Eval prompts: defined.
 - Objective expectations: defined.
 - Baseline vs with-skill runner: available at `eval-harness/`.
+- Aggregate grading summary: generated as `aggregate-grading.json`.
 - Baseline vs with-skill manual summary: available in `docs/benchmark-summary.md`.
 - CI smoke validation: enabled through `scripts/validate_skill.py`.
+- Upstream source link validation: enabled through `scripts/check_upstream_sources.py`.
 - Field test: documented in `docs/field-test-copilot-go-chat.md`.
 
 The current benchmark status is intentionally conservative. Local paired runs show behavior lift, but the repository should not claim top-tier benchmark completion until the expanded eval set is run repeatedly and graded consistently.
@@ -95,6 +97,9 @@ The with-skill output should:
 - Require upstream verification before version-sensitive Copilot SDK guidance.
 - Use risk-based validation instead of requiring tests everywhere.
 - Prefer SDK and platform primitives before custom infrastructure.
+- Use the verified API ledger before exact Go, TypeScript, or Python starter-level implementation guidance.
+- Refuse exact .NET, Java, or Rust implementation code unless current source is verified during the task.
+- Route MCP, BYOK, code review, patching, and skill-loaded custom-agent requests to workflow playbooks.
 
 ## Result Format
 
@@ -117,6 +122,7 @@ eval-results/
         run.json
       grading.json
     summary.json
+    aggregate-grading.json
 ```
 
 Do not commit raw result directories. Commit only a concise summary when the result changes release confidence.
@@ -144,11 +150,12 @@ Use this grading shape:
 
 Before a public release:
 
-1. At least four evals must have baseline and with-skill outputs.
+1. At least eight evals must have baseline and with-skill outputs.
 2. With-skill output should pass more expectations than baseline on each run.
 3. Any failed expectation must be classified as one of:
    - Skill wording gap.
    - Eval expectation too broad.
    - User prompt intentionally out of scope.
    - Upstream SDK ambiguity.
-4. The release notes must mention evaluation status honestly.
+4. At least three runs are required before claiming top-tier benchmark quality.
+5. The release notes must mention evaluation status honestly.
