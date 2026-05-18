@@ -12,13 +12,13 @@ The skill is intentionally opinionated. It is now a Builder Kit, not only a guar
 ## Install
 
 ```bash
-npx skills add https://github.com/ernsahin/copilot-sdk-skill --skill copilot-sdk
+npx skills add https://github.com/ernsahin/copilot-sdk-skill
 ```
 
-Or, if the repository is discoverable by the Skills CLI:
+Optional explicit install:
 
 ```bash
-npx skills add ernsahin/copilot-sdk-skill --skill copilot-sdk
+npx skills add https://github.com/ernsahin/copilot-sdk-skill --skill copilot-sdk
 ```
 
 ## Use When
@@ -56,6 +56,7 @@ This prevents shallow outputs such as empty SDLC folders, giant prompts with no 
 ## Package Layout
 
 ```text
+SKILL.md
 skills/copilot-sdk/
   SKILL.md
   references/
@@ -158,7 +159,7 @@ Primary sources:
 - [Copilot SDK docs index](https://raw.githubusercontent.com/github/copilot-sdk/main/docs/index.md)
 - Target language source, especially `go/`, `nodejs/`, `python/`, `dotnet/`, `java/`, and `rust/`
 
-Canonical package source for this repository is `skills/copilot-sdk/`. Any sibling or local copied `copilot-sdk/` directory outside this repository should be treated as a stale workspace copy unless explicitly synchronized.
+The repository root `SKILL.md` is the install entrypoint for `npx skills add owner/repo`. The canonical skill body is `skills/copilot-sdk/SKILL.md`. Any sibling or local copied `copilot-sdk/` directory outside this repository should be treated as a stale workspace copy unless explicitly synchronized.
 
 ## License
 

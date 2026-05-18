@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - Builder Kit positioning for Go, TypeScript/Node.js, and Python Copilot SDK work.
 - Concise verified API ledger for Go, TypeScript, and Python with checked upstream URLs.
+- Repository-root skill entrypoint for `npx skills add owner/repo` compatibility.
 - Workflow playbooks for code review agents, code patchers, MCP-backed agents, BYOK backends, and skill-loaded custom agents.
 - Minimal starter templates for Go, TypeScript, and Python.
 - Upstream source link checker for CI.

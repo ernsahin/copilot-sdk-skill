@@ -242,8 +242,24 @@ def main() -> None:
     skill_dir = Path(sys.argv[1]).resolve()
     validate_skill(skill_dir)
     repo_root = skill_dir.parent.parent
+    validate_root_entrypoint(repo_root)
     validate_eval_harness(repo_root)
     print("Skill package is valid.")
+
+
+def validate_root_entrypoint(repo_root: Path) -> None:
+    root_skill = repo_root / "SKILL.md"
+    if not root_skill.exists():
+        fail("Missing repository-root SKILL.md entrypoint")
+    text = root_skill.read_text(encoding="utf-8")
+    frontmatter, body = parse_frontmatter(text)
+    if frontmatter.get("name") != "copilot-sdk":
+        fail("Root SKILL.md name must be copilot-sdk")
+    description = frontmatter.get("description", "")
+    if "Use this skill" not in description:
+        fail("Root SKILL.md description must include trigger guidance")
+    if "skills/copilot-sdk/SKILL.md" not in body:
+        fail("Root SKILL.md must point to the canonical skill body")
 
 
 def validate_eval_harness(repo_root: Path) -> None:

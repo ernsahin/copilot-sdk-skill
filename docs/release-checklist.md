@@ -5,6 +5,7 @@ Use this checklist before publishing a new version.
 ## Skill Content
 
 - [ ] `skills/copilot-sdk/SKILL.md` is concise and trigger-rich.
+- [ ] Root `SKILL.md` installs with `npx skills add owner/repo` and points to the canonical skill body.
 - [ ] Domain details live in `references/`, not the main skill body.
 - [ ] The verified API ledger has a checked date and current official URLs for Go, TypeScript, and Python.
 - [ ] Workflow playbooks exist for code review, code patching, MCP-backed agents, BYOK backends, and skill-loaded custom agents.
@@ -39,6 +40,7 @@ Use this checklist before publishing a new version.
 - [ ] Release gate: install command works on a clean machine or clean temp workspace:
 
 ```bash
+npx skills add https://github.com/ernsahin/copilot-sdk-skill
 npx skills add https://github.com/ernsahin/copilot-sdk-skill --skill copilot-sdk
 ```
 
