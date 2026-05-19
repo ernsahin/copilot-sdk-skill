@@ -207,7 +207,7 @@ func runOne(parent context.Context, client *copilot.Client, cfg runConfig) runRe
 
 	cap := &capture{}
 	session, err := client.CreateSession(ctx, &copilot.SessionConfig{
-		ClientName:          "copilot-sdk-skill-eval-harness",
+		ClientName:          "copilot-sdk-eval-harness",
 		Model:               cfg.Model,
 		WorkingDirectory:    cfg.Workdir,
 		CustomAgents:        evalAgents(cfg.WithSkill),
@@ -369,7 +369,7 @@ func prepareWorkdir(workdir string, outDir string) (string, error) {
 		return workdirAbs, nil
 	}
 
-	workdirAbs, err := os.MkdirTemp("", "copilot-sdk-skill-eval-workspace-")
+	workdirAbs, err := os.MkdirTemp("", "copilot-sdk-eval-workspace-")
 	if err != nil {
 		return "", fmt.Errorf("create isolated workspace: %w", err)
 	}

@@ -9,7 +9,7 @@ metadata:
 
 # Copilot SDK Builder Kit
 
-This repository-root skill exists so `npx skills add ernsahin/copilot-sdk-skill` installs without extra flags.
+This repository-root skill exists so `npx skills add ernsahin/copilot-sdk` installs without extra flags.
 
 Use `skills/copilot-sdk/SKILL.md` as the canonical skill body. Read that file immediately when this root entrypoint triggers, then follow its instructions.
 

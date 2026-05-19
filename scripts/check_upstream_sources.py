@@ -18,7 +18,7 @@ def fail(message: str) -> None:
 
 
 def fetch_head(url: str) -> str:
-    req = urllib.request.Request(url, headers={"User-Agent": "copilot-sdk-skill-source-check"})
+    req = urllib.request.Request(url, headers={"User-Agent": "copilot-sdk-source-check"})
     with urllib.request.urlopen(req, timeout=20) as response:
         data = response.read(2048)
     return data.decode("utf-8", errors="replace")

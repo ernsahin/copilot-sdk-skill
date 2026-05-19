@@ -40,8 +40,8 @@ Use this checklist before publishing a new version.
 - [ ] Release gate: install command works on a clean machine or clean temp workspace:
 
 ```bash
-npx skills add https://github.com/ernsahin/copilot-sdk-skill
-npx skills add https://github.com/ernsahin/copilot-sdk-skill --skill copilot-sdk
+npx skills add https://github.com/ernsahin/copilot-sdk
+npx skills add https://github.com/ernsahin/copilot-sdk --skill copilot-sdk
 ```
 
 - [ ] README includes purpose, install command, quality standard, and source policy.
