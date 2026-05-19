@@ -1,6 +1,6 @@
 # Copilot SDK Skill
 
-[![skills.sh](https://skills.sh/b/ernsahin/skills)](https://skills.sh/ernsahin/skills/copilot-sdk)
+[![skills.sh](https://skills.sh/b/ernsahin/skills)](https://skills.sh/ernsahin/skills)
 [![CI](https://github.com/ernsahin/skills/actions/workflows/ci.yml/badge.svg)](https://github.com/ernsahin/skills/actions/workflows/ci.yml)
 
 Build Copilot SDK agents safely with verified Go, TypeScript, and Python workflows.
