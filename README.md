@@ -1,7 +1,7 @@
 # Copilot SDK Skill
 
-[![skills.sh](https://skills.sh/b/ernsahin/copilot-sdk)](https://skills.sh/ernsahin/copilot-sdk/copilot-sdk)
-[![CI](https://github.com/ernsahin/copilot-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ernsahin/copilot-sdk/actions/workflows/ci.yml)
+[![skills.sh](https://skills.sh/b/ernsahin/skills)](https://skills.sh/ernsahin/skills/copilot-sdk)
+[![CI](https://github.com/ernsahin/skills/actions/workflows/ci.yml/badge.svg)](https://github.com/ernsahin/skills/actions/workflows/ci.yml)
 
 Build Copilot SDK agents safely with verified Go, TypeScript, and Python workflows.
 
@@ -12,13 +12,13 @@ The skill is intentionally opinionated. It is now a Builder Kit, not only a guar
 ## Install
 
 ```bash
-npx skills add https://github.com/ernsahin/copilot-sdk
+npx skills add https://github.com/ernsahin/skills
 ```
 
 Optional explicit install:
 
 ```bash
-npx skills add https://github.com/ernsahin/copilot-sdk --skill copilot-sdk
+npx skills add https://github.com/ernsahin/skills --skill copilot-sdk
 ```
 
 ## Use When

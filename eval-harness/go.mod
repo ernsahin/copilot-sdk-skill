@@ -1,4 +1,4 @@
-module github.com/ernsahin/copilot-sdk/eval-harness
+module github.com/ernsahin/skills/eval-harness
 
 go 1.24
 
