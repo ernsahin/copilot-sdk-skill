@@ -4,6 +4,14 @@ All notable changes to this skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses semantic versioning for skill content.
 
+## [0.5.1] - 2026-05-20
+
+### Changed
+
+- Made the repository-root `SKILL.md` a concise, self-contained audited entrypoint instead of a delegation-only bootstrap.
+- Kept the named skill package under `skills/copilot-sdk/` for agents that load skill directories.
+- Clarified source verification, workflow quality gates, routing, and completion standards in the root entrypoint to reduce audit ambiguity.
+
 ## [0.5.0] - 2026-05-18
 
 ### Added
