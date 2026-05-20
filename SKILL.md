@@ -4,7 +4,7 @@ description: "Build, plan, review, and improve production-shaped systems using g
 license: MIT
 metadata:
   author: local
-  version: "0.5.1"
+  version: "0.5.4"
 ---
 
 # Copilot SDK Builder Kit

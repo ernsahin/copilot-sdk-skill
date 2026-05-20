@@ -4,7 +4,7 @@ All notable changes to this skill are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses semantic versioning for skill content.
 
-## [0.5.1] - 2026-05-20
+## [0.5.4] - 2026-05-20
 
 ### Changed
 
