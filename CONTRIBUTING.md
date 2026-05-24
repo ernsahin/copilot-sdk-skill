@@ -12,7 +12,7 @@ Contributions should improve agent behavior, not only add content.
 ## Local Checks
 
 ```bash
-python scripts/validate_skill.py skills/copilot-sdk
+python scripts/validate_skill.py skills/copilot-sdk-kit
 ```
 
 ## Writing Rules

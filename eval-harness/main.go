@@ -39,7 +39,7 @@ type capture struct {
 }
 
 func main() {
-	evalsPath := flag.String("evals", "../skills/copilot-sdk/evals/evals.json", "Path to evals.json.")
+	evalsPath := flag.String("evals", "../skills/copilot-sdk-kit/evals/evals.json", "Path to evals.json.")
 	skillsDir := flag.String("skills-dir", "../skills", "Parent directory containing skill folders.")
 	outDir := flag.String("out", "", "Output directory. Defaults to ../eval-results/<timestamp>.")
 	limit := flag.Int("limit", 4, "Maximum number of evals to run.")
@@ -47,7 +47,7 @@ func main() {
 	timeout := flag.Duration("timeout", 3*time.Minute, "Timeout per session run.")
 	model := flag.String("model", "", "Optional model name. Empty uses runtime default.")
 	workdir := flag.String("workdir", "", "Working directory for Copilot SDK sessions. Empty uses an isolated temp workspace outside the skill repository.")
-	forceSkill := flag.Bool("force-skill", false, "Prefix with-skill prompts with an explicit instruction to use the copilot-sdk skill.")
+	forceSkill := flag.Bool("force-skill", false, "Prefix with-skill prompts with an explicit instruction to use the copilot-sdk-kit skill.")
 	flag.Parse()
 
 	if err := run(*evalsPath, *skillsDir, *outDir, *limit, *ids, *timeout, *model, *workdir, *forceSkill); err != nil {
@@ -139,7 +139,7 @@ func run(evalsPath string, skillsDir string, outDir string, limit int, ids strin
 		})
 		withSkillPrompt := item.Prompt
 		if forceSkill {
-			withSkillPrompt = "Use the copilot-sdk skill for this task.\n\n" + item.Prompt
+			withSkillPrompt = "Use the copilot-sdk-kit skill for this task.\n\n" + item.Prompt
 		}
 		withSkill := runOne(ctx, client, runConfig{
 			Prompt:    withSkillPrompt,
@@ -247,7 +247,7 @@ func evalAgents(withSkill bool) []copilot.CustomAgentConfig {
 		Prompt:      "You are a concise software engineering assistant. Complete the user's task directly and avoid filler.",
 	}
 	if withSkill {
-		agent.Skills = []string{"copilot-sdk"}
+		agent.Skills = []string{"copilot-sdk-kit"}
 	}
 	return []copilot.CustomAgentConfig{agent}
 }

@@ -1,11 +1,11 @@
 # Copilot SDK Eval Harness
 
-This harness evaluates the `copilot-sdk` skill using GitHub Copilot SDK itself.
+This harness evaluates the `copilot-sdk-kit` skill using GitHub Copilot SDK itself.
 
 For each eval prompt, it runs two isolated Copilot SDK sessions:
 
 1. **Baseline**: the same custom eval agent with no skills preloaded.
-2. **With skill**: the same custom eval agent with `Skills: ["copilot-sdk"]` and `SkillDirectories` pointing at the repository `skills/` directory.
+2. **With skill**: the same custom eval agent with `Skills: ["copilot-sdk-kit"]` and `SkillDirectories` pointing at the repository `skills/` directory.
 
 By default, both sessions use a clean workspace created outside the skill repository. This keeps the baseline from reading the skill repository by accident. Use `-workdir` only when an eval intentionally needs a real repository.
 
@@ -43,7 +43,7 @@ To test the skill content separately from automatic skill-selection behavior, ru
 go run . -limit 4 -force-skill
 ```
 
-This keeps the baseline unchanged and adds a short "use the copilot-sdk skill" instruction only to the with-skill prompts. It is usually unnecessary because the with-skill eval agent already preloads the skill.
+This keeps the baseline unchanged and adds a short "use the copilot-sdk-kit skill" instruction only to the with-skill prompts. It is usually unnecessary because the with-skill eval agent already preloads the skill.
 
 Windows PowerShell:
 
@@ -55,7 +55,7 @@ Optional:
 
 ```bash
 go run . \
-  -evals ../skills/copilot-sdk/evals/evals.json \
+  -evals ../skills/copilot-sdk-kit/evals/evals.json \
   -skills-dir ../skills \
   -out ../eval-results/manual-run \
   -ids 1,10 \

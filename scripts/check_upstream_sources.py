@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / "skills" / "copilot-sdk" / "references" / "verified-api-ledger.md"
+LEDGER = ROOT / "skills" / "copilot-sdk-kit" / "references" / "verified-api-ledger.md"
 URL_RE = re.compile(r"https://raw\.githubusercontent\.com/github/copilot-sdk/[^\s)]+")
 
 

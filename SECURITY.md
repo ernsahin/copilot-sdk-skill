@@ -18,7 +18,7 @@ Skill content must not:
 
 ## Review Standard
 
-Changes to `skills/copilot-sdk/` should be reviewed for:
+Changes to `skills/copilot-sdk-kit/` should be reviewed for:
 
 - Prompt injection risk.
 - Unsafe tool or shell guidance.

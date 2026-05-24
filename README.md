@@ -1,4 +1,4 @@
-# Copilot SDK Skill
+# Copilot SDK Kit Skill
 
 [![skills.sh](https://skills.sh/b/ernsahin/skills)](https://skills.sh/ernsahin/skills)
 [![CI](https://github.com/ernsahin/skills/actions/workflows/ci.yml/badge.svg)](https://github.com/ernsahin/skills/actions/workflows/ci.yml)
@@ -12,13 +12,7 @@ The skill is intentionally opinionated. It is now a Builder Kit, not only a guar
 ## Install
 
 ```bash
-npx skills add https://github.com/ernsahin/skills
-```
-
-Optional explicit install:
-
-```bash
-npx skills add https://github.com/ernsahin/skills --skill copilot-sdk
+npx skills add https://github.com/ernsahin/skills --skill copilot-sdk-kit
 ```
 
 ## Use When
@@ -56,16 +50,16 @@ This prevents shallow outputs such as empty SDLC folders, giant prompts with no 
 ## Package Layout
 
 ```text
-SKILL.md
-skills/copilot-sdk/
-  SKILL.md
-  references/
-    verified-api-ledger.md
-    workflows/
-  examples/
-    starters/
-  evals/evals.json
-  assets/
+skills/
+  copilot-sdk-kit/
+    SKILL.md
+    references/
+      verified-api-ledger.md
+      workflows/
+    examples/
+      starters/
+    evals/evals.json
+    assets/
 docs/
   benchmark-summary.md
   evaluation.md
@@ -79,7 +73,7 @@ scripts/
 Run local validation:
 
 ```bash
-python scripts/validate_skill.py skills/copilot-sdk
+python scripts/validate_skill.py skills/copilot-sdk-kit
 ```
 
 The validator checks:
@@ -133,7 +127,7 @@ go run . -limit 4
 The harness runs paired sessions:
 
 1. Baseline: same custom eval agent with no skill preloaded.
-2. With skill: same custom eval agent with `Skills: ["copilot-sdk"]` and `SkillDirectories` pointing at this repository's `skills/` directory.
+2. With skill: same custom eval agent with `Skills: ["copilot-sdk-kit"]` and `SkillDirectories` pointing at this repository's `skills/` directory.
 
 Raw run outputs are written to `eval-results/`, which is ignored by git. The repository does not claim benchmark completion until outputs are manually graded and summarized.
 
@@ -141,9 +135,9 @@ The harness also writes `aggregate-grading.json` so manual grades can be summari
 
 ## Builder Kit Policy
 
-Files under `skills/copilot-sdk/examples/starters/` are minimal starter templates verified against `skills/copilot-sdk/references/verified-api-ledger.md`. They are intended as small implementation starting points, not production applications.
+Files under `skills/copilot-sdk-kit/examples/starters/` are minimal starter templates verified against `skills/copilot-sdk-kit/references/verified-api-ledger.md`. They are intended as small implementation starting points, not production applications.
 
-Files directly under `skills/copilot-sdk/examples/` remain shape references, not source verification. For exact SDK imports, types, fields, event names, permission result names, or setup code, inspect current upstream docs, installed SDK source, or the verified API ledger for starter-level Go, TypeScript, and Python guidance.
+Files directly under `skills/copilot-sdk-kit/examples/` remain shape references, not source verification. For exact SDK imports, types, fields, event names, permission result names, or setup code, inspect current upstream docs, installed SDK source, or the verified API ledger for starter-level Go, TypeScript, and Python guidance.
 
 ## Field Test
 
@@ -159,7 +153,7 @@ Primary sources:
 - [Copilot SDK docs index](https://raw.githubusercontent.com/github/copilot-sdk/main/docs/index.md)
 - Target language source, especially `go/`, `nodejs/`, `python/`, `dotnet/`, `java/`, and `rust/`
 
-The repository root `SKILL.md` is the install entrypoint for `npx skills add owner/repo`. The canonical skill body is `skills/copilot-sdk/SKILL.md`. Any sibling or local copied `copilot-sdk/` directory outside this repository should be treated as a stale workspace copy unless explicitly synchronized.
+The canonical skill package is `skills/copilot-sdk-kit/SKILL.md`. The repository intentionally does not keep a root `SKILL.md`, so the package has a single source and a single skill slug.
 
 ## License
 

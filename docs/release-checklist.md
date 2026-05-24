@@ -4,8 +4,8 @@ Use this checklist before publishing a new version.
 
 ## Skill Content
 
-- [ ] `skills/copilot-sdk/SKILL.md` is concise and trigger-rich.
-- [ ] Root `SKILL.md` installs with `npx skills add owner/repo` and points to the canonical skill body.
+- [ ] `skills/copilot-sdk-kit/SKILL.md` is concise and trigger-rich.
+- [ ] The repository has no root `SKILL.md`; the only installable package is `skills/copilot-sdk-kit`.
 - [ ] Domain details live in `references/`, not the main skill body.
 - [ ] The verified API ledger has a checked date and current official URLs for Go, TypeScript, and Python.
 - [ ] Workflow playbooks exist for code review, code patching, MCP-backed agents, BYOK backends, and skill-loaded custom agents.
@@ -16,7 +16,7 @@ Use this checklist before publishing a new version.
 
 ## Validation
 
-- [ ] `python scripts/validate_skill.py skills/copilot-sdk` passes.
+- [ ] `python scripts/validate_skill.py skills/copilot-sdk-kit` passes.
 - [ ] `python scripts/check_upstream_sources.py` passes.
 - [ ] `cd eval-harness && go test ./...` passes.
 - [ ] CI passes on the release branch.
@@ -40,8 +40,7 @@ Use this checklist before publishing a new version.
 - [ ] Release gate: install command works on a clean machine or clean temp workspace:
 
 ```bash
-npx skills add https://github.com/ernsahin/skills
-npx skills add https://github.com/ernsahin/skills --skill copilot-sdk
+npx skills add https://github.com/ernsahin/skills --skill copilot-sdk-kit
 ```
 
 - [ ] README includes purpose, install command, quality standard, and source policy.

@@ -1,6 +1,6 @@
 # Evaluation Runbook
 
-The skill includes eval prompts in `skills/copilot-sdk/evals/evals.json`.
+The skill includes eval prompts in `skills/copilot-sdk-kit/evals/evals.json`.
 
 The goal is to verify that the skill changes agent behavior, not just that the files are valid.
 
@@ -40,12 +40,12 @@ cd eval-harness
 go run . -limit 4 -force-skill
 ```
 
-This leaves the baseline prompt unchanged and only prefixes the with-skill prompt with a short instruction to use the `copilot-sdk` skill. It is usually unnecessary for content-quality evals because the with-skill custom agent already preloads the skill.
+This leaves the baseline prompt unchanged and only prefixes the with-skill prompt with a short instruction to use the `copilot-sdk-kit` skill. It is usually unnecessary for content-quality evals because the with-skill custom agent already preloads the skill.
 
 For each eval, the harness creates:
 
 1. A baseline Copilot SDK session using a custom eval agent with no skills preloaded.
-2. A with-skill Copilot SDK session using the same custom eval agent with `Skills: ["copilot-sdk"]` and `SkillDirectories` pointing to this repository's `skills/` directory.
+2. A with-skill Copilot SDK session using the same custom eval agent with `Skills: ["copilot-sdk-kit"]` and `SkillDirectories` pointing to this repository's `skills/` directory.
 
 By default both sessions run in an isolated workspace outside the skill repository. This prevents the baseline session from reading the skill files from the repository and contaminating the comparison. Pass `-workdir` only when an eval intentionally needs a real repository as input.
 
@@ -81,7 +81,7 @@ The harness does not auto-grade the outputs. Grading is intentionally explicit s
 For each eval:
 
 1. Run the prompt without this skill.
-2. Run the same prompt with `skills/copilot-sdk`.
+2. Run the same prompt with `skills/copilot-sdk-kit`.
 3. Save both outputs.
 4. Grade each expectation as pass/fail with evidence.
 5. Compare whether the skill materially improves the output.

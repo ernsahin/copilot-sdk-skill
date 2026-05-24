@@ -5,7 +5,7 @@ This repository uses GitHub Copilot SDK itself to run paired behavior evals.
 The eval harness compares:
 
 1. Baseline: same custom eval agent with no skill preloaded.
-2. With skill: same custom eval agent with `Skills: ["copilot-sdk"]` and this repository's `skills/` directory.
+2. With skill: same custom eval agent with `Skills: ["copilot-sdk-kit"]` and this repository's `skills/` directory.
 
 Raw eval outputs are intentionally ignored by git under `eval-results/`. They contain model transcripts, event logs, permission logs, aggregate grading summaries, and run metadata that are useful locally but too noisy for the published skill package.
 
@@ -18,7 +18,7 @@ Run shape:
 1. Runner: `eval-harness/`, using GitHub Copilot SDK Go package.
 2. Conditions: paired baseline and with-skill sessions using the same custom eval agent.
 3. Baseline: no skill preloaded.
-4. With skill: `Skills: ["copilot-sdk"]` and this repository's `skills/` directory.
+4. With skill: `Skills: ["copilot-sdk-kit"]` and this repository's `skills/` directory.
 5. Grading: manual expectation review against saved `response.md`, `events.jsonl`, `permissions.jsonl`, and `grading.json`.
 6. Raw outputs: intentionally not committed.
 

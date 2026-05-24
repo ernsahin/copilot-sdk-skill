@@ -1,5 +1,5 @@
 ---
-name: copilot-sdk
+name: copilot-sdk-kit
 description: "Build, plan, review, and improve production-shaped systems using github/copilot-sdk. Use this skill whenever the user mentions Copilot SDK, GitHub Copilot CLI SDKs, embedded Copilot agents, SDK sessions, Go, TypeScript/Node.js, Python, custom tools, custom agents, MCP servers, hooks, BYOK/auth, streaming, persistence, telemetry, SDK-loaded skills, code review agents, code patching agents, PR automation, or professional directives for Copilot SDK systems. Treat this as a Builder Kit: route to the verified API ledger, workflow playbooks, and minimal starters before inventing code. Enforce reusable runtime design, explicit tool and permission boundaries, observable session behavior, failure and continuation semantics, state ownership, source verification, and risk-based validation. Do not provide exact SDK imports, types, fields, event names, permission result names, or setup code unless current source, installed package source, or the verified API ledger was inspected during the task."
 license: MIT
 metadata:
